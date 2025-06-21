@@ -1,0 +1,31 @@
+.edit-data__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-small);
+}
+
+.edit-data__form__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-xsmall);
+}
+
+.edit-data__form__footer {
+  gap: var(--size-small);
+  flex-wrap: wrap;
+}
+
+.edit-data__form__button {
+  font-weight: var(--weight-semibold);
+  padding-inline: var(--size-small);
+}
+
+.edit-data__form__button--reset {
+  border: 1px solid var(--color-text-muted);
+  color: var(--color-text-muted);
+}
+
+.edit-data__form__button--submit {
+  background-color: hsl(var(--color-primary));
+  color: white;
+}

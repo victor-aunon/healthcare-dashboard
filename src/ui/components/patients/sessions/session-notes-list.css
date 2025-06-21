@@ -1,0 +1,42 @@
+.session-notes-list__container {
+  padding: var(--size-small);
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-small);
+  grid-column: 1 / -1;
+  background-color: white;
+  border-radius: var(--border-radius-large);
+  width: fit-content;
+}
+
+.session-notes-list {
+  display: flex;
+  gap: var(--size-small);
+  flex-wrap: wrap;
+}
+
+.session-notes-list__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--size-xsmall);
+  align-items: center;
+}
+
+.session-notes-list__header__title {
+  color: hsl(var(--color-secondary));
+}
+
+.create-session-note__button {
+  background-color: hsl(var(--color-secondary));
+  color: white;
+  padding: var(--size-xsmall) var(--size-small);
+  font-weight: var(--weight-bold);
+  margin-bottom: var(--size-xsmall);
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    filter: drop-shadow(0 0 4px hsla(var(--color-secondary), 0.4));
+  }
+}

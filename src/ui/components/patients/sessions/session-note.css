@@ -1,0 +1,63 @@
+.session-note {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-small);
+  border-radius: var(--border-radius-medium);
+  background-color: hsla(var(--color-primary), 0.1);
+  overflow: hidden;
+  max-width: 300px;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.session-note__header {
+  padding: var(--size-xsmall);
+  font-weight: var(--weight-bold);
+  background-color: hsla(var(--color-primary), 0.7);
+  color: white;
+}
+
+.session-note__content {
+  padding: var(--size-xsmall) var(--size-small);
+  text-wrap: balance;
+}
+
+.session-note__footer {
+  padding: var(--size-xsmall);
+}
+
+.session-note__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--size-small);
+  margin-top: var(--size-xsmall);
+}
+
+.session-note__button {
+  display: flex;
+  align-items: center;
+  gap: var(--size-xsmall);
+  color: hsl(var(--color-primary));
+  border-radius: var(--border-radius-medium);
+  font-weight: var(--weight-semibold);
+  padding-inline: var(--size-xsmall);
+}
+
+.session-note__button--edit {
+  border: 1px solid hsl(var(--color-primary));
+  background-color: white;
+
+  svg {
+    stroke: hsl(var(--color-primary));
+  }
+}
+
+.session-note__button--delete {
+  color: white;
+  background-color: hsl(var(--color-danger));
+  svg {
+    stroke: white;
+  }
+}

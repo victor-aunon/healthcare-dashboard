@@ -1,0 +1,116 @@
+.user__card {
+  background-color: white;
+  border-radius: var(--border-radius-large);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--size-xsmall);
+  padding: var(--size-small);
+
+  svg {
+    stroke: var(--color-text-muted);
+  }
+}
+
+.user__card__header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--size-small);
+}
+
+.user__card__header__avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--size-xsmall);
+}
+
+.user__card__header__avatar__age {
+  font-size: 1.1em;
+}
+
+.user__card__header__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-xsmall);
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+
+.user__card__header__info__title {
+  margin-block: calc(-1 * var(--size-xsmall));
+}
+
+.user__card__header__info__name {
+  font-weight: var(--weight-bold);
+  font-size: var(--size-small);
+}
+
+.user__card__header__info__item {
+  display: flex;
+  align-items: center;
+  gap: var(--size-xsmall);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  & > * {
+    flex-shrink: 0;
+  }
+
+  span {
+    color: var(--color-text-muted);
+  }
+}
+
+.user__card--primary {
+  .user__card__header__avatar__age,
+  .user__card__header__info__name,
+  .user__card__button--edit,
+  .user__card__header__info__title {
+    color: hsl(var(--color-primary));
+  }
+  .user__card__button--edit {
+    border: 1px solid hsl(var(--color-primary));
+    svg {
+      stroke: hsl(var(--color-primary));
+    }
+  }
+}
+
+.user__card--secondary {
+  .user__card__header__avatar__age,
+  .user__card__header__info__name,
+  .user__card__button--edit,
+  .user__card__header__info__title {
+    color: hsl(var(--color-secondary));
+  }
+  .user__card__button--edit {
+    border: 1px solid hsl(var(--color-secondary));
+    svg {
+      stroke: hsl(var(--color-secondary));
+    }
+  }
+}
+
+.user__card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--size-small);
+  margin-top: var(--size-xsmall);
+}
+
+.user__card__button {
+  font-weight: var(--weight-semibold);
+  padding-inline: var(--size-xsmall);
+}
+
+.user__card__button--delete {
+  color: white;
+  background-color: hsl(var(--color-danger));
+  svg {
+    stroke: white;
+  }
+}

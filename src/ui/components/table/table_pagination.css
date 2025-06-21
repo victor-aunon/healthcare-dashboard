@@ -1,0 +1,45 @@
+.table__pagination {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--size-small);
+  gap: var(--size-xsmall);
+}
+
+.table__pagination__info {
+  color: var(--color-text-muted);
+  flex: 1 0 auto;
+}
+
+.table__pagination__info__count,
+.table__pagination__info__page {
+  color: hsl(var(--color-primary));
+  font-weight: var(--weight-bold);
+}
+
+.table__pagination__info__total {
+  color: hsl(var(--color-secondary));
+  font-weight: var(--weight-bold);
+}
+
+.table__pagination__buttons {
+  display: flex;
+  gap: var(--size-xsmall);
+  margin-inline: auto;
+}
+
+.table__pagination__button {
+  background-color: hsl(var(--color-primary));
+  color: white;
+
+  &:hover {
+    filter: drop-shadow(0 0 4px hsla(var(--color-secondary), 0.4));
+  }
+
+  svg {
+    stroke: white;
+    scale: 1.2;
+  }
+}

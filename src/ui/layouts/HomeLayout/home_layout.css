@@ -1,0 +1,33 @@
+.main {
+  display: grid;
+  max-width: 1440px;
+  width: 100vw;
+  margin-inline: auto;
+  padding-inline: var(--size-medium);
+  padding-left: calc(var(--size-medium) + var(--sidebar-width));
+  transition: padding-left 0.2s ease-in-out;
+}
+
+.main--open {
+  padding-left: calc(var(--size-medium) + var(--sidebar-width-expanded));
+}
+
+.create-patient__button {
+  background-color: hsl(var(--color-primary));
+  color: white;
+  padding: var(--size-xsmall) var(--size-small);
+  font-weight: var(--weight-bold);
+  margin-bottom: var(--size-xsmall);
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    filter: drop-shadow(0 0 4px hsla(var(--color-secondary), 0.4));
+  }
+}
+
+@media screen and (min-width: 1800px) {
+  .main,
+  .main--open {
+    padding-left: var(--size-medium);
+  }
+}

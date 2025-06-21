@@ -1,0 +1,24 @@
+.avatar {
+  height: var(--size-large);
+  width: var(--size-large);
+}
+
+.avatar--primary {
+  outline: 3px solid hsl(var(--color-primary));
+
+  .avatar__fallback {
+    color: hsl(var(--color-primary));
+  }
+}
+
+.avatar--secondary {
+  outline: 3px solid hsl(var(--color-secondary));
+
+  .avatar__fallback {
+    color: hsl(var(--color-secondary));
+  }
+}
+
+.avatar__fallback {
+  font-size: var(--size-small);
+}
