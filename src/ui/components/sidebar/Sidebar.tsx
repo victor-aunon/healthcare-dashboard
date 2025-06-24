@@ -14,8 +14,13 @@ export function Sidebar({ isOpen = true, setIsOpen, ...props }: SidebarProps) {
   return (
     <aside {...props} className={`sidebar ${isOpen ? 'sidebar--open' : ''}`}>
       <div className="sidebar__header">
-        <img src="" alt="Logo" className="sidebar__logo" />
-        <h2 className="sidebar__title"> {isOpen ? 'Healthcare' : 'H'} </h2>
+        <img src="/logos/logo.png" alt="Logo" className="sidebar__logo" />
+        <h2
+          className="sidebar__header__title"
+          data-content={isOpen ? 'Healthcare dashboard' : 'HC'}
+        >
+          {isOpen ? 'Healthcare dashboard' : 'HC'}{' '}
+        </h2>
         <div
           className="sidebar__toggle"
           onClick={() => setIsOpen(!isOpen)}

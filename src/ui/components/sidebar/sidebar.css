@@ -24,12 +24,27 @@
 }
 
 .sidebar__logo {
-  height: 40px;
+  height: 80px;
   object-fit: contain;
 }
 
 .sidebar__header__title {
   overflow: hidden;
+  text-align: center;
+  font-size: 2em;
+  color: transparent;
+  transition: none;
+  position: relative;
+  transition: color 0.6s ease-in-out;
+
+  &::before {
+    content: attr(data-content);
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: hsl(var(--color-secondary));
+    opacity: 1;
+  }
 }
 
 .sidebar__toggle {
@@ -52,6 +67,14 @@
     & > * {
       justify-content: flex-start;
     }
+  }
+
+  .sidebar__header__title {
+    color: hsl(var(--color-secondary));
+  }
+
+  .sidebar__header__title::before {
+    opacity: 0;
   }
 }
 
