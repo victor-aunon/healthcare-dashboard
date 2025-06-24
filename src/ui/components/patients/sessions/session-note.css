@@ -52,6 +52,9 @@
   svg {
     stroke: hsl(var(--color-primary));
   }
+  &:hover {
+    filter: drop-shadow(0 0 4px hsla(var(--color-primary), 0.4));
+  }
 }
 
 .session-note__button--delete {
@@ -59,5 +62,8 @@
   background-color: hsl(var(--color-danger));
   svg {
     stroke: white;
+  }
+  &:hover {
+    filter: drop-shadow(0 0 4px hsla(var(--color-danger), 0.4));
   }
 }

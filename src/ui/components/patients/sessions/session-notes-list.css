@@ -31,7 +31,7 @@
 .create-session-note__button {
   background-color: hsl(var(--color-secondary));
   color: white;
-  padding: var(--size-xsmall) var(--size-small);
+  padding: var(--size-xsmall) var(--size-xsmall);
   font-weight: var(--weight-bold);
   margin-bottom: var(--size-xsmall);
   transition: background-color 0.2s ease-in-out;
