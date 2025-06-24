@@ -2,6 +2,7 @@ import httpClient from '@/api'
 import { endpoints } from 'api/endpoints'
 import type { Patient } from 'domain/users'
 import type { ApiService } from 'application/ports'
+import type { AxiosError } from 'axios'
 
 export function apiService(): ApiService {
   async function getPatients(): ReturnType<ApiService['getPatients']> {
@@ -67,6 +68,7 @@ export function apiService(): ApiService {
       const { data } = await httpClient({ method })(route(patientId), payload)
       return data
     } catch (error) {
+      console.error((error as AxiosError).message)
       throw new Error('Failed to update patient')
     }
   }
@@ -78,7 +80,22 @@ export function apiService(): ApiService {
       const { method, route } = endpoints.deletePatient
       await httpClient({ method })(route(patientId))
     } catch (error) {
+      console.error((error as AxiosError).message)
       throw new Error('Failed to delete patient')
+    }
+  }
+
+  async function createPatientEmergencyContact(
+    patientId: UUID,
+    payload: Omit<Patient['emergencyContact'], 'id'>,
+  ): ReturnType<ApiService['createPatientEmergencyContact']> {
+    try {
+      const { method, route } = endpoints.createPatientEmergencyContact
+      const { data } = await httpClient({ method })(route(patientId), payload)
+      return data
+    } catch (error) {
+      console.error((error as AxiosError).message)
+      throw new Error('Failed to create emergency contact')
     }
   }
 
@@ -91,6 +108,7 @@ export function apiService(): ApiService {
       const { data } = await httpClient({ method })(route(patientId), payload)
       return data
     } catch (error) {
+      console.error((error as AxiosError).message)
       throw new Error('Failed to update emergency contact')
     }
   }
@@ -102,6 +120,7 @@ export function apiService(): ApiService {
       const { method, route } = endpoints.deletePatientEmergencyContact
       await httpClient({ method })(route(patientId))
     } catch (error) {
+      console.error((error as AxiosError).message)
       throw new Error('Failed to delete emergency contact')
     }
   }
@@ -114,6 +133,7 @@ export function apiService(): ApiService {
       const { data } = await httpClient({ method })(route(patientId))
       return data
     } catch (error) {
+      console.error((error as AxiosError).message)
       throw new Error('Failed to get patient session notes')
     }
   }
@@ -127,6 +147,7 @@ export function apiService(): ApiService {
       const { data } = await httpClient({ method })(route(patientId), payload)
       return data
     } catch (error) {
+      console.error((error as AxiosError).message)
       throw new Error('Failed to create patient session note')
     }
   }
@@ -144,6 +165,7 @@ export function apiService(): ApiService {
       )
       return data
     } catch (error) {
+      console.error((error as AxiosError).message)
       throw new Error('Failed to update patient session note')
     }
   }
@@ -156,6 +178,7 @@ export function apiService(): ApiService {
       const { method, route } = endpoints.deletePatientSessionNote
       await httpClient({ method })(route(patientId, noteId))
     } catch (error) {
+      console.error((error as AxiosError).message)
       throw new Error('Failed to delete patient session note')
     }
   }
@@ -166,6 +189,7 @@ export function apiService(): ApiService {
     createPatient,
     updatePatient,
     deletePatient,
+    createPatientEmergencyContact,
     updatePatientEmergencyContact,
     deletePatientEmergencyContact,
     getPatientSteps,

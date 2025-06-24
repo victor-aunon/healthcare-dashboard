@@ -24,5 +24,5 @@ export const deletePatient = () =>
     const newFakePatients = _fakePatients.filter(patient => patient.id !== id)
     storageService().set('patients', newFakePatients)
 
-    return [200, { message: 'Patient deleted' }]
+    return [204, { message: 'Patient deleted' }]
   })

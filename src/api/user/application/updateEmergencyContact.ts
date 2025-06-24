@@ -1,12 +1,13 @@
-import { emergencyContactRegex, patientRegex } from 'api/utils/regex'
 import { fakePatients } from 'api/data/users'
 import { logRequest } from 'api/utils/logger'
 import { mockAdapter } from '@/api'
+import { emergencyContactRegex } from 'api/utils/regex'
 import { storageService } from 'services/storage.adapter'
+import type { ApiService } from 'application/ports'
 import type { FakePatient } from 'api/data/users'
 
-export const deleteEmergencyContact = () =>
-  mockAdapter.onDelete(emergencyContactRegex).reply(config => {
+export const updateEmergencyContact = () =>
+  mockAdapter.onPatch(emergencyContactRegex).reply(config => {
     logRequest(config)
     const id = config.url?.match(emergencyContactRegex)?.[1]
     let patient: FakePatient | undefined = fakePatients.find(
@@ -29,10 +30,19 @@ export const deleteEmergencyContact = () =>
       ]
     }
 
-    const newFakePatients = fakePatients.map(patient =>
-      patient.id === id ? { ...patient, emergencyContact: null } : patient,
+    const payload = JSON.parse(config.data) as Parameters<
+      ApiService['updatePatientEmergencyContact']
+    >[1]
+
+    patient = {
+      ...patient,
+      emergencyContact: { ...patient.emergencyContact, ...payload },
+    }
+    const newFakePatients = fakePatients.map(fakePatient =>
+      fakePatient.id === id ? patient : fakePatient,
     )
     storageService().set('patients', newFakePatients)
 
-    return [204, { message: 'Emergency contact deleted' }]
+    const { emergencyContact } = patient
+    return [200, emergencyContact]
   })

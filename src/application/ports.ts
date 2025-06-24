@@ -6,7 +6,7 @@ import type {
   HeartRate,
   SessionNote,
 } from 'domain/medical'
-import type { Patient } from 'domain/users'
+import type { Patient, EmergencyContact } from 'domain/users'
 
 export type ApiService = {
   getPatients: () => Promise<Patient[]>
@@ -34,8 +34,12 @@ export type ApiService = {
   deletePatient: (id: UUID) => Promise<void>
   updatePatientEmergencyContact: (
     id: UUID,
-    payload: Partial<Patient['emergencyContact']>,
-  ) => Promise<Patient['emergencyContact'] | null>
+    payload: Partial<EmergencyContact>,
+  ) => Promise<EmergencyContact>
+  createPatientEmergencyContact: (
+    id: UUID,
+    payload: Omit<EmergencyContact, 'id' | 'role'>,
+  ) => Promise<EmergencyContact>
   deletePatientEmergencyContact: (id: UUID) => Promise<void>
   getPatientSteps: (id: UUID) => Promise<DailySteps[] | null>
   getPatientBloodPressure: (id: UUID) => Promise<BloodPressure[] | null>

@@ -125,6 +125,7 @@ This is a list of all the features/work I would have included to be happier
 5. [ ] **Present the session notes in a calendar** instead of a list with cards. A monthly calendar with highlighted days where you can click and see those notes.
 6. [ ] **Add some type of login and authentication**. Even though the backend is mocked, it would be great to have some login page. Especially taking into account that the app is basically a backoffice.
 7. [ ] **I18n**. Include translations.
+8. [x] Re-organize the backend mocks since it is quite messy now.
 
 ## Starting the project
 

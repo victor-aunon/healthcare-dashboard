@@ -23,6 +23,10 @@ export const endpoints = {
     method: 'PATCH',
     route: (id: UUID) => `api/v1/patients/${id}`,
   } as ApiEndPoint<'PATCH', (id: UUID) => string>,
+  createPatientEmergencyContact: {
+    method: 'POST',
+    route: (id: UUID) => `api/v1/patients/${id}/emergency-contacts`,
+  } as ApiEndPoint<'POST', (id: UUID) => string>,
   updatePatientEmergencyContact: {
     method: 'PATCH',
     route: (id: UUID) => `api/v1/patients/${id}/emergency-contacts`,
