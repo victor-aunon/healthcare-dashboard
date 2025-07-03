@@ -11,6 +11,10 @@ export function PatientCreationModal() {
 
   const [isOpen, setIsOpen] = useState(false)
 
+  const onOpenChange = (open: boolean) => {
+    setIsOpen(open)
+  }
+
   const handleCreatePatient = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsOpen(false)
@@ -37,10 +41,11 @@ export function PatientCreationModal() {
   }
 
   return (
-    <Dialog open={isOpen}>
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <button
         className="create-patient__button"
         onClick={() => setIsOpen(true)}
+        disabled={isPending}
       >
         {icons.addPatient} Create patient
       </button>
@@ -48,6 +53,7 @@ export function PatientCreationModal() {
         title="Create patient"
         description="Create a new patient"
         handleSubmit={handleCreatePatient}
+        isPending={isPending}
         closeModal={() => setIsOpen(false)}
       />
     </Dialog>

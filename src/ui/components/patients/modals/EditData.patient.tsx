@@ -24,6 +24,7 @@ export function EditDataPatientModal({
   description,
   closeModal,
   children,
+  isPending,
 }: EditDataPatientModalProps) {
   return (
     <EditDataUserModal
@@ -33,6 +34,7 @@ export function EditDataPatientModal({
       handleSubmit={handleSubmit}
       closeModal={closeModal}
       role={Roles.PATIENT}
+      isPending={isPending}
     >
       <div className="edit-data__form__item">
         <Label htmlFor="sex">Sex</Label>

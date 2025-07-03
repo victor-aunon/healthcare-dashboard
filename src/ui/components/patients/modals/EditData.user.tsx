@@ -17,6 +17,7 @@ export type EditDataUserModalProps = {
   user?: User | Patient['emergencyContact']
   description?: string
   children?: React.ReactNode
+  isPending?: boolean
 }
 
 export function EditDataUserModal({
@@ -27,6 +28,7 @@ export function EditDataUserModal({
   user,
   description,
   children,
+  isPending,
 }: EditDataUserModalProps) {
   return (
     <DialogContent>
@@ -118,6 +120,7 @@ export function EditDataUserModal({
           <button
             type="submit"
             className="edit-data__form__button edit-data__form__button--submit"
+            disabled={isPending}
           >
             Save
           </button>

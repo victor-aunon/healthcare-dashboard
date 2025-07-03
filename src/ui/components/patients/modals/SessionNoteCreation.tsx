@@ -29,7 +29,7 @@ export function SessionNoteCreationModal({ patientId }: { patientId: UUID }) {
   }
 
   return (
-    <Dialog open={isOpen}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <button
         className="create-session-note__button"
         onClick={() => setIsOpen(true)}
