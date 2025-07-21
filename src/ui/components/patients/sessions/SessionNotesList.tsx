@@ -1,23 +1,26 @@
 import { useParams } from '@tanstack/react-router'
 import routePaths from 'app/routes/routePaths'
-import { useDeletePatientSessionNote } from 'application/deletePatientSessionNote'
-import { useUpdatePatientSessionNotes } from 'application/updatePatientSessionNotes'
+import {
+  useGetPatientSessionNotes,
+  useDeletePatientSessionNote,
+  useUpdatePatientSessionNote,
+} from 'application/session-notes'
 import type { SessionNote } from 'domain/medical'
 import { useState } from 'react'
 import { Dialog } from 'ui/components/dialog'
 import { EditNoteModal } from 'ui/components/patients/modals/EditNote'
 import { SessionNoteCreationModal } from 'ui/components/patients/modals/SessionNoteCreation'
 import './session-notes-list.css'
-import { SessionNoteCard, type SessionNoteCardProps } from './SessionNote'
+import { SessionNoteCard } from './SessionNote'
+import { SessionNoteSkeleton } from './SessionNote.skeleton'
 
-type SessionNotesListProps = Omit<SessionNoteCardProps, 'note'> & {
-  notes: SessionNote[]
-}
-
-export function SessionNotesList({ notes }: SessionNotesListProps) {
-  const { deleteSessionNote } = useDeletePatientSessionNote()
-  const { updateSessionNote } = useUpdatePatientSessionNotes()
+export function SessionNotesList() {
   const { patientId } = useParams({ from: routePaths.patient })
+  const { data: notes, isLoading } = useGetPatientSessionNotes(
+    patientId as UUID,
+  )
+  const { mutate: deleteSessionNote } = useDeletePatientSessionNote()
+  const { mutate: updateSessionNote } = useUpdatePatientSessionNote()
 
   const [selectedNote, setSelectedNote] = useState<SessionNote | null>(null)
 
@@ -34,34 +37,47 @@ export function SessionNotesList({ notes }: SessionNotesListProps) {
       updatedAt: new Date().toISOString(),
     }
 
-    await updateSessionNote(patientId as UUID, noteId as UUID, payload)
+    updateSessionNote({
+      patientId: patientId as UUID,
+      noteId: noteId as UUID,
+      payload,
+    })
   }
 
-  if (notes.length === 0) {
+  if (isLoading) {
     return (
-      <section className="session-notes-list__container">
-        <header className="session-notes-list__header">
-          <h3 className="session-notes-list__header__title">Latest sessions</h3>
-          <SessionNoteCreationModal patientId={patientId as UUID} />
-        </header>
+      <SessionNotesWrapper patientId={patientId as UUID}>
+        <ul className="session-notes-list">
+          {Array.from({ length: 2 }).map((_, i) => (
+            <SessionNoteSkeleton key={`session-note-skeleton-${i}`} />
+          ))}
+        </ul>
+      </SessionNotesWrapper>
+    )
+  }
+
+  if (notes?.length === 0) {
+    return (
+      <SessionNotesWrapper patientId={patientId as UUID}>
         <p>There are no notes</p>
-      </section>
+      </SessionNotesWrapper>
     )
   }
 
   return (
-    <section className="session-notes-list__container">
-      <header className="session-notes-list__header">
-        <h3 className="session-notes-list__header__title">Latest sessions</h3>
-        <SessionNoteCreationModal patientId={patientId as UUID} />
-      </header>
+    <SessionNotesWrapper patientId={patientId as UUID}>
       <ul className="session-notes-list">
-        {notes.map(note => (
+        {notes?.map(note => (
           <li key={note.id}>
             <SessionNoteCard
               key={note.id}
               note={note}
-              onDelete={() => deleteSessionNote(note.patientId, note.id)}
+              onDelete={() =>
+                deleteSessionNote({
+                  patientId: note.patientId,
+                  noteId: note.id,
+                })
+              }
               setSelectedNote={setSelectedNote}
             />
           </li>
@@ -81,6 +97,26 @@ export function SessionNotesList({ notes }: SessionNotesListProps) {
           />
         )}
       </Dialog>
+    </SessionNotesWrapper>
+  )
+}
+
+type SessionNotesWrapperProps = {
+  patientId: UUID
+  children: React.ReactNode
+}
+
+function SessionNotesWrapper({
+  patientId,
+  children,
+}: SessionNotesWrapperProps) {
+  return (
+    <section className="session-notes-list__container">
+      <header className="session-notes-list__header">
+        <h3 className="session-notes-list__header__title">Latest sessions</h3>
+        <SessionNoteCreationModal patientId={patientId as UUID} />
+      </header>
+      {children}
     </section>
   )
 }

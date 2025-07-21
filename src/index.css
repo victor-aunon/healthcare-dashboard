@@ -15,6 +15,7 @@
   --color-warning: 45, 97%, 51%;
   --color-danger: 354, 76%, 54%;
   --color-info: 188, 88%, 41%;
+  --color-skeleton: 0, 0%, 0%;
 
   --size-xsmall: 0.5em;
   --size-small: 1.5em;

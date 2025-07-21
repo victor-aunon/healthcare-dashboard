@@ -11,7 +11,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import routePaths from 'app/routes/routePaths'
-import { useGetPatients } from 'application/getPatients'
+import { useGetPatients } from 'application/users'
 import { useState } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from 'ui/components/avatar'
 import { Input } from 'ui/components/form/input'

@@ -1,13 +1,13 @@
 import { Dialog } from 'ui/components/dialog'
 import { useState } from 'react'
 import { EditDataPatientModal } from 'ui/components/patients/modals/EditData.patient'
-import { useCreatePatient } from 'application/createPatient'
+import { useCreatePatient } from 'application/users'
 import { icons } from 'ui/icons'
 import { ApiService } from 'application/ports'
 import type { Patient } from 'domain/users'
 
 export function PatientCreationModal() {
-  const { createPatient } = useCreatePatient()
+  const { isPending, mutate } = useCreatePatient()
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -37,7 +37,8 @@ export function PatientCreationModal() {
       },
     }
 
-    await createPatient(payload)
+    // await createPatient(payload)
+    mutate(payload)
   }
 
   return (

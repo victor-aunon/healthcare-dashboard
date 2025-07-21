@@ -1,4 +1,4 @@
-import { useCreatePatientSessionNote } from 'application/createPatientSessionNote'
+import { useCreatePatientSessionNote } from 'application/session-notes'
 import type { SessionNote } from 'domain/medical'
 import { useState } from 'react'
 import { Dialog } from 'ui/components/dialog'
@@ -6,7 +6,7 @@ import { EditNoteModal } from 'ui/components/patients/modals/EditNote'
 import { icons } from 'ui/icons'
 
 export function SessionNoteCreationModal({ patientId }: { patientId: UUID }) {
-  const { createSessionNote } = useCreatePatientSessionNote()
+  const { mutate, isPending } = useCreatePatientSessionNote()
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -25,7 +25,7 @@ export function SessionNoteCreationModal({ patientId }: { patientId: UUID }) {
       patientId,
     }
 
-    await createSessionNote(patientId, payload)
+    mutate({ patientId, payload })
   }
 
   return (
@@ -33,6 +33,7 @@ export function SessionNoteCreationModal({ patientId }: { patientId: UUID }) {
       <button
         className="create-session-note__button"
         onClick={() => setIsOpen(true)}
+        disabled={isPending}
       >
         {icons.addSessionNote} Create note
       </button>

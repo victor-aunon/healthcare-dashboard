@@ -11,7 +11,7 @@ export const patientsRoute = createRoute({
     const queryClient = context.queryClient
     const { getPatients } = apiService()
     await queryClient.ensureQueryData({
-      queryKey: ['patients'],
+      queryKey: ['patients', 'all'],
       queryFn: getPatients,
     })
   },

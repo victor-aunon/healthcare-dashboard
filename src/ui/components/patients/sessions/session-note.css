@@ -67,3 +67,21 @@
     filter: drop-shadow(0 0 4px hsla(var(--color-danger), 0.4));
   }
 }
+
+.session-note__skeleton {
+  height: 260px;
+  width: 300px;
+  animation: pulse 1s linear infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

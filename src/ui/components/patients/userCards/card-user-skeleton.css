@@ -1,0 +1,40 @@
+.user__card__skeleton {
+  height: 400px;
+  width: 440px;
+  animation: pulse 1s linear infinite;
+}
+
+.user__card__header__avatar__skeleton {
+  height: var(--size-large);
+  width: var(--size-large);
+  border-radius: 50%;
+  background-color: hsla(var(--color-skeleton), 0.08);
+}
+
+.user__card__header__info__item__skeleton {
+  height: 1em;
+  min-width: 200px;
+  background-color: hsla(var(--color-skeleton), 0.08);
+  border-radius: var(--border-radius-small);
+}
+
+.user__card__body__skeleton {
+  height: 6em;
+  flex: 1;
+  width: 100%;
+  margin-top: 1em;
+  background-color: hsla(var(--color-skeleton), 0.08);
+  border-radius: var(--border-radius-medium);
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

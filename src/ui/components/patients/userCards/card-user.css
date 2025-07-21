@@ -26,7 +26,8 @@
 }
 
 .user__card__header__avatar__age {
-  font-size: 1.1em;
+  font-size: 1.2em;
+  font-weight: var(--font-weight-bold);
 }
 
 .user__card__header__info {
