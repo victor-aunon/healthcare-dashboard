@@ -7,7 +7,7 @@ export function useGetPatients() {
   const api: ApiService = apiService()
 
   return useSuspenseQuery({
-    queryKey: ['patients'],
+    queryKey: ['patients', 'all'],
     queryFn: api.getPatients,
   })
 }

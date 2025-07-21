@@ -1,4 +1,4 @@
-import { emergencyContactRegex, patientRegex } from 'api/utils/regex'
+import { emergencyContactRegex } from 'api/utils/regex'
 import { fakePatients } from 'api/data/users'
 import { logRequest } from 'api/utils/logger'
 import { mockAdapter } from '@/api'

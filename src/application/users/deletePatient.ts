@@ -1,6 +1,6 @@
 import { apiService } from 'services/api.adapter'
 import { alertService } from 'services/alert.adapter'
-import { useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import routePaths from 'app/routes/routePaths'
 
@@ -12,8 +12,8 @@ export function useDeletePatient() {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
 
-  return async function deletePatient(patientId: UUID) {
-    try {
+  return useMutation({
+    mutationFn: async (patientId: UUID) => {
       const { isConfirmed } = await alert.questionAlert({
         title: 'Are you sure you want to delete this patient?',
         cancelButtonText: 'Cancel',
@@ -22,15 +22,23 @@ export function useDeletePatient() {
       if (!isConfirmed) return
 
       await api.deletePatient(patientId)
-      await queryClient.invalidateQueries({ queryKey: ['patients'] })
-      await alert.successAlert({
+      navigate({ to: routePaths.patients })
+    },
+    onSuccess: () => {
+      alert.successAlert({
         title: 'Patient deleted successfully',
       })
-      navigate({ to: routePaths.patients })
-    } catch (error) {
-      await alert.errorAlert({
+    },
+    onError: error => {
+      alert.errorAlert({
         title: (error as Error).message,
       })
-    }
-  }
+    },
+    onSettled: (data, error, { patientId }) => {
+      queryClient.invalidateQueries({ queryKey: ['patients', 'all'] })
+      queryClient.invalidateQueries({
+        queryKey: ['patients', 'one', patientId],
+      })
+    },
+  })
 }

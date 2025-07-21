@@ -1,4 +1,4 @@
-import { useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { alertService } from 'services/alert.adapter'
 import { apiService } from 'services/api.adapter'
 
@@ -9,8 +9,8 @@ export function useDeleteEmergencyContact() {
   const api: ApiService = apiService()
   const queryClient = useQueryClient()
 
-  return async function deleteEmergencyContact(patientId: UUID) {
-    try {
+  return useMutation({
+    mutationFn: async (patientId: UUID) => {
       const { isConfirmed } = await alert.questionAlert({
         title: 'Are you sure you want to delete this contact?',
         cancelButtonText: 'Cancel',
@@ -18,16 +18,22 @@ export function useDeleteEmergencyContact() {
       })
       if (!isConfirmed) return
 
-      await api.deletePatientEmergencyContact(patientId)
-      await queryClient.invalidateQueries({ queryKey: ['patients'] })
-      await queryClient.refetchQueries({ queryKey: ['patient', patientId] })
-      await alert.successAlert({
+      api.deletePatientEmergencyContact(patientId)
+    },
+    onSuccess: () => {
+      alert.successAlert({
         title: 'Emergency contact deleted successfully',
       })
-    } catch (error) {
-      await alert.errorAlert({
+    },
+    onError: error => {
+      alert.errorAlert({
         title: (error as Error).message,
       })
-    }
-  }
+    },
+    onSettled: (_, __, patientId) => {
+      queryClient.invalidateQueries({
+        queryKey: ['patients', 'one', patientId],
+      })
+    },
+  })
 }
